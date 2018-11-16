@@ -13,6 +13,9 @@ class TestUsers(unittest.TestCase):
         self.new_user = User(name = "Kevine", password = "marvo")
     
     def tearDown(self):
+        """
+        Will delete all the info from the db
+        """
         User.query.delete()
 
     def test_instance(self):

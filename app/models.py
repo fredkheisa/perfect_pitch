@@ -54,7 +54,7 @@ class Pitch(db.Model):
     comments = db.relationship("Comment", backref = "pitch", lazy = "dynamic")
 
     def save_pitch(self):
-        db.session(self)
+        db.session.add(self)
         db.session.commit()
 
     def get_pitch_comments(self):
