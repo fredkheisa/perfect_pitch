@@ -3,8 +3,9 @@ from .forms import RegistrationForm,LoginForm
 from app.models import User
 from flask import render_template
 from flask_login import login_user
+from app.email import create_mail
 
-@auth.route("/r", methods = ["GET","POST"])
+@auth.route("/", methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
 
@@ -15,10 +16,11 @@ def register():
 
         new_user = User(name = name, email = email, password = pass_input)
         new_user.save_user()
+        create_mail("Yo","email/emai",new_user.email,name = new_user.name)
     return render_template("auth/login.html",form = form)
 
     
-@auth.route("/", methods = ["GET","POST"])
+@auth.route("/dk", methods = ["GET","POST"])
 def login():
     form = LoginForm()
 
