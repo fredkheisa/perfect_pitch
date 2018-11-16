@@ -18,7 +18,7 @@ class DevConfig(Config):
     """
     This is the class which we will use to set the configurations during development stage of the app
     Args:
-        COnfig - this is the parent config class from which we inherit its properties
+        Config - this is the parent config class from which we inherit its properties
     """
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/pitch_perfect'
 

@@ -1,8 +1,8 @@
 from . import auth
 from .forms import RegistrationForm,LoginForm
 from app.models import User
-from flask import render_template
-from flask_login import login_user
+from flask import render_template,url_for,redirect
+from flask_login import login_user,logout_user
 from app.email import create_mail
 
 @auth.route("/", methods = ["GET","POST"])
@@ -16,11 +16,12 @@ def register():
 
         new_user = User(name = name, email = email, password = pass_input)
         new_user.save_user()
-        create_mail("Yo","email/emai",new_user.email,name = new_user.name)
-    return render_template("auth/login.html",form = form)
+        create_mail("Yo","email/emai",new_user.email,name = name)
+        return redirect(url_for("auth.login"))
+    return render_template("auth/register.html",form = form)
 
     
-@auth.route("/dk", methods = ["GET","POST"])
+@auth.route("/login", methods = ["GET","POST"])
 def login():
     form = LoginForm()
 
@@ -36,3 +37,9 @@ def login():
             return render_template("logged.html", user = user)
 
     return render_template("auth/login.html",form = form)
+
+
+@auth.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("auth.login"))
