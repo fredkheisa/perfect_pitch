@@ -1,7 +1,7 @@
 from app import create_app,db
 from flask_script import Manager,Server
 from app.models import User, Pitch, Comment
-
+from flask_migrate import Migrate, MigrateCommand
 
 app = create_app("test")
 
@@ -20,6 +20,8 @@ def test():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
+migrate = Migrate(app,db)
+manager.add_command("mig", MigrateCommand)
 
 if __name__ == "__main__":
     manager.run()

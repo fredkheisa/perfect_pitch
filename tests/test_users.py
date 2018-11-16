@@ -55,3 +55,4 @@ class TestUsers(unittest.TestCase):
         self.new_user.save_user()
         users = User.query.all()
         self.assertTrue(len(users) > 0)
+
