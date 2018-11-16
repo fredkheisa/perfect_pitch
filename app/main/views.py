@@ -3,7 +3,7 @@ from .forms import AddPitchForm
 from . import main
 from flask import render_template
 
-@main.route("/", methods = ["GET","POST"])
+@main.route("/j", methods = ["GET","POST"])
 def index():
     form = AddPitchForm()
     title = "Add Pitch"
