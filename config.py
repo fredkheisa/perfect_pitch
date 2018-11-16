@@ -13,7 +13,6 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
     MAIL_PASSWORD  = os.environ.get("EMAIL_PASSWORD")
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/perfect_pitch'
 
 class DevConfig(Config):
     """
@@ -21,6 +20,8 @@ class DevConfig(Config):
     Args:
         COnfig - this is the parent config class from which we inherit its properties
     """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/pitch_perfect'
+
     DEBUG = True
 
 class ProdConfig(Config):
@@ -38,7 +39,8 @@ class TestConfig(Config):
         Config - this is the parent config class from which we inherit its properties
     """
 
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/pitch_test'
+
 
 config_options = {
     "test": TestConfig,
