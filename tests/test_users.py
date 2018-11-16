@@ -10,7 +10,7 @@ class TestUsers(unittest.TestCase):
         This will create an instance of the User before each test case
         """
 
-        self.new_user = User(name = "Kevine", password = "marvo")
+        self.new_user = User(name = "Nits", password = "marvo")
     
     def tearDown(self):
         """
@@ -28,7 +28,7 @@ class TestUsers(unittest.TestCase):
         """
         Will test whether the User model is instantiated correctly
         """
-        self.assertEquals(self.new_user.name,"Kevine")
+        self.assertEquals(self.new_user.name,"Nits")
 
     def test_password_generate(self):
         """
