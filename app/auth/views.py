@@ -1,9 +1,10 @@
 from . import auth
-from .forms import RegistrationForm
+from .forms import RegistrationForm,LoginForm
 from app.models import User
 from flask import render_template
+from flask_login import login_user
 
-@auth.route("/", methods = ["GET","POST"])
+@auth.route("/r", methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
 
@@ -17,3 +18,19 @@ def register():
     return render_template("auth/login.html",form = form)
 
     
+@auth.route("/", methods = ["GET","POST"])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user_email = form.email.data
+        user_password = form.password.data
+        remember = form.remember_me.data
+
+        user = User.query.filter_by(email = user_email).first()
+
+        if user is not None and user.verify_pass(user_password):
+            login_user(user,remember)
+            return render_template("logged.html", user = user)
+
+    return render_template("auth/login.html",form = form)
