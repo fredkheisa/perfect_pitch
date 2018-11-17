@@ -10,7 +10,7 @@ from .. import photos,db
 def index():
     pitches = Pitch.query.all()
     title = "Home"
-    return render_template("index.html", pitches = pitches)
+    return render_template("index.html", pitches = pitches,title = title)
 
 @main.route("/pitches/<category>")
 def categories(category):
@@ -42,7 +42,7 @@ def add_pitch(uname):
         new_pitch = Pitch(title = title, content = pitch, category = category,user = user, date = date,time = time)
         new_pitch.save_pitch()  
         pitches = Pitch.query.all()
-        return redirect(url_for("main.index"))
+        return redirect(url_for("main.categories",category = category))
     return render_template("add_pitch.html",form = form, title = title)
 
 @main.route("/<user>/pitch/<pitch_id>/add/comment", methods = ["GET","POST"])
@@ -51,7 +51,7 @@ def comment(user,pitch_id):
     user = User.query.filter_by(id = user).first()
     pitch = Pitch.query.filter_by(id = pitch_id).first()
     form = AddComment()
-
+    title = "Add comment"
     if form.validate_on_submit():
         content = form.content.data 
         dateOriginal = datetime.datetime.now()
@@ -69,24 +69,24 @@ def comment(user,pitch_id):
 @login_required
 def view_comments(pitch_id):
     pitch = Pitch.query.filter_by(id = pitch_id).first()
-
+    title = "Comments"
     comments = pitch.get_pitch_comments()
 
-    return render_template("view_comments.html", comments = comments,pitch = pitch)
+    return render_template("view_comments.html", comments = comments,pitch = pitch,title = title)
 
 @main.route("/profile/<user_id>")
 @login_required
 def profile(user_id):
     user = User.query.filter_by(id = user_id).first()
     pitches = user.pitches
-
-    return render_template("profile.html", pitches = pitches, user = user)
+    title = user.name
+    return render_template("profile.html", pitches = pitches, user = user,title = title)
 
 @main.route("/pic/<user_id>/update", methods = ["POST"])
 @login_required
 def update_pic(user_id):
     user = User.query.filter_by(id = user_id).first()
-
+    title = "Edit Profile"
     if "profile-pic" in request.files:
         pic = photos.save(request.files["profile-pic"])
         file_path = f"photos/{pic}"
@@ -97,6 +97,7 @@ def update_pic(user_id):
 @main.route("/<user_id>/profile/edit",methods = ["GET","POST"])
 @login_required
 def update_profile(user_id):
+    title = "Edit Profile"
     user = User.query.filter_by(id = user_id).first()
     form = EditBio()
 

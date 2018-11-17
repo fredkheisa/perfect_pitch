@@ -8,7 +8,7 @@ from app.email import create_mail
 @auth.route("/register", methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
-
+    title = 'Pitch Perfect- Register'
     if form.validate_on_submit():
         name = form.username.data
         email = form.email.data
@@ -18,13 +18,13 @@ def register():
         new_user.save_user()
         create_mail("Yo","email/emai",new_user.email,name = name)
         return redirect(url_for("auth.login"))
-    return render_template("auth/register.html",form = form)
+    return render_template("auth/register.html",form = form,title = title)
 
     
 @auth.route("/login", methods = ["GET","POST"])
 def login():
     form = LoginForm()
-
+    title = "Pitch Perfect - Login"
     if form.validate_on_submit():
         user_email = form.email.data
         user_password = form.password.data
@@ -37,7 +37,7 @@ def login():
             flash("Welcome to Pitch Perfect")
             return redirect(url_for("main.index", user = user))
         flash("Invalid username or pasword")
-    return render_template("auth/login.html",form = form)
+    return render_template("auth/login.html",form = form,title = title)
 
 
 @auth.route("/logout")

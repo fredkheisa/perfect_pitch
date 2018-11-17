@@ -1,5 +1,7 @@
 body {
-    background-size: cover
+    background-size: cover;
+    font-family: Gochi Hand;
+    font-size: 2em;
 }
 .category {
     margin-top: 20px;
@@ -43,6 +45,7 @@ body {
 }
 .pitch-card {
     padding: 10px;
+    padding-top: 0;
     border: 1px solid black;
     box-shadow: -1px 1px 16px -1px rgba(0, 0, 0, 0.75);
     margin: 10px;
