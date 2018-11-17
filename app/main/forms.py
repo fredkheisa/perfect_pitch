@@ -7,7 +7,7 @@ class AddPitchForm(FlaskForm):
     pitch = TextAreaField("Go", validators = [Required()])
     category = SelectField(
         "category",
-        choices=[("pick-ups", "pick-ups"),("boring","boring")],validators = [Required()]
+        choices=[("pick-ups", "pick-ups"),("boring","boring"),("funny","funny"),("promotion","promotion")],validators = [Required()]
     )
     submit = SubmitField("Add pitch")
 

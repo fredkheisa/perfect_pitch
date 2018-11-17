@@ -1,11 +1,11 @@
 from . import auth
 from .forms import RegistrationForm,LoginForm
 from app.models import User
-from flask import render_template,url_for,redirect
+from flask import render_template,url_for,redirect,flash
 from flask_login import login_user,logout_user
 from app.email import create_mail
 
-@auth.route("/", methods = ["GET","POST"])
+@auth.route("/register", methods = ["GET","POST"])
 def register():
     form = RegistrationForm()
 
@@ -34,12 +34,14 @@ def login():
 
         if user is not None and user.verify_pass(user_password):
             login_user(user,remember)
-            return render_template("logged.html", user = user)
-
+            flash("Welcome to Pitch Perfect")
+            return redirect(url_for("main.index", user = user))
+        flash("Invalid username or pasword")
     return render_template("auth/login.html",form = form)
 
 
 @auth.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for("auth.login"))
+    flash("You have successfully logged out")
+    return redirect(url_for("main.index"))

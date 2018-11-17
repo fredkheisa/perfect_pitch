@@ -1,0 +1,35 @@
+body {
+    font-family: Poor Story;
+    font-size: 2em;
+    background: #F2F3F4;
+    background-size: cover
+}
+.category {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: steelblue;
+    text-align: center;
+    color: white;
+    transition: background 1s, transform 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.category:hover {
+    transform: scale(1.1)
+}
+.category a {
+    color: white;
+    transition: transform 1s;
+}
+.category a:hover {
+    transform: rotateZ(360deg)
+}
+.categories {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between
+}

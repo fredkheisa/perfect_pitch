@@ -1,22 +1,43 @@
 from ..models import User,Pitch,Comment
 from .forms import AddPitchForm,AddComment
 from . import main
-from flask import render_template,redirect
+from flask import render_template,redirect,url_for
+
+@main.route("/")
+def index():
+    pitches = Pitch.query.all()
+    title = "Home"
+    return render_template("index.html", pitches = pitches)
+
+@main.route("/pitches/<category>")
+def categories(category):
+    pitches = None
+    if category == "all":
+        pitches = Pitch.query.all()
+    else:
+        pitches = Pitch.query.filter_by(category = category).all()
+
+    return render_template("pitches.html", pitches = pitches, title = category)
+
+
 
 @main.route("/<uname>/add/pitch", methods = ["GET","POST"])
-def index(uname):
+def add_pitch(uname):
     form = AddPitchForm()
+    user = User.query.filter_by(name = uname).first()
+    if user is None:
+        abort(404)
     title = "Add Pitch"
     if form.validate_on_submit():
         title = form.title.data
         pitch = form.pitch.data
         category = form.category.data 
-        user = User.query.filter_by(name = uname).first()
+
         new_pitch = Pitch(title = title, content = pitch, category = category,user = user)
         new_pitch.save_pitch()  
         pitches = Pitch.query.all()
-        return render_template("posted.html", pitches = pitches)
-    return render_template("index.html",form = form, title = title)
+        return redirect(url_for("main.index"))
+    return render_template("add_pitch.html",form = form, title = title)
 
 @main.route("/<user>/pitch/<pitch_id>/add/comment", methods = ["GET","POST"])
 def comment(user,pitch_id):
