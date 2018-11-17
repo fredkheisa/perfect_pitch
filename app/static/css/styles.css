@@ -1,6 +1,5 @@
 body {
-    font-family: Poor Story;
-    font-size: 2em;
+    font-size: 1.5em;
     background: #F2F3F4;
     background-size: cover
 }
@@ -32,4 +31,36 @@ body {
     display: flex;
     justify-content: space-between;
     align-content: space-between
+}
+.pitch-row {
+    display: flex;
+    justify-content: space-between;
+}
+.pitch-card {
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: -1px 1px 16px -1px rgba(0, 0, 0, 0.75);
+    background: #D4E6F1;
+    margin: 10px;
+    overflow: hidden;
+    transition: transform 1s;
+}
+.pitch-card:hover {
+    transform: scale(1.1)
+}
+.pitch-comment {
+    text-decoration: none;
+}
+.pitch-comment:hover {
+    transform: scale(1.2)
+}
+.comment-title {
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    display: inline-block
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
