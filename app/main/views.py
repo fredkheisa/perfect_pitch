@@ -1,5 +1,5 @@
 from ..models import User,Pitch,Comment
-from .forms import AddPitchForm,AddComment
+from .forms import AddPitchForm,AddComment,EditBio
 from . import main
 from flask import render_template,redirect,url_for,flash,request
 from flask_login import login_required
@@ -53,8 +53,13 @@ def comment(user,pitch_id):
     form = AddComment()
 
     if form.validate_on_submit():
-        content = form.content.data
-        new_comment = Comment(content = content, user = user, pitch = pitch )
+        content = form.content.data 
+        dateOriginal = datetime.datetime.now()
+        time = str(dateOriginal.time())
+        time = time[0:5]
+        date = str(dateOriginal)
+        date = date[0:10]
+        new_comment = Comment(content = content, user = user, pitch = pitch,time = time, date = date )
         new_comment.save_comment()
         flash(f"Comment for {pitch.title.upper()} added")
         return redirect(url_for("main.categories", category=pitch.category))
@@ -70,6 +75,7 @@ def view_comments(pitch_id):
     return render_template("view_comments.html", comments = comments,pitch = pitch)
 
 @main.route("/profile/<user_id>")
+@login_required
 def profile(user_id):
     user = User.query.filter_by(id = user_id).first()
     pitches = user.pitches
@@ -77,6 +83,7 @@ def profile(user_id):
     return render_template("profile.html", pitches = pitches, user = user)
 
 @main.route("/pic/<user_id>/update", methods = ["POST"])
+@login_required
 def update_pic(user_id):
     user = User.query.filter_by(id = user_id).first()
 
@@ -86,6 +93,20 @@ def update_pic(user_id):
         user.profile_pic = file_path
         db.session.commit()
     return redirect(url_for("main.profile", user_id = user.id))
+
+@main.route("/<user_id>/profile/edit",methods = ["GET","POST"])
+@login_required
+def update_profile(user_id):
+    user = User.query.filter_by(id = user_id).first()
+    form = EditBio()
+
+    if form.validate_on_submit():
+        bio = form.bio.data
+        user.bio = bio
+        db.session.commit() 
+        return redirect(url_for('main.profile',user_id = user.id)) 
+    return render_template("update_profile.html",form = form)
+
 
 
 

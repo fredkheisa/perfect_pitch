@@ -1,6 +1,4 @@
 body {
-    font-size: 1.5em;
-    background: #F2F3F4;
     background-size: cover
 }
 .category {
@@ -16,6 +14,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.navbar {
+    background-color: steelblue;
+    border: none;
+}
+.navbar a {
+    color: white;
 }
 .category:hover {
     transform: scale(1.1)
@@ -40,13 +45,12 @@ body {
     padding: 10px;
     border: 1px solid black;
     box-shadow: -1px 1px 16px -1px rgba(0, 0, 0, 0.75);
-    background: #D4E6F1;
     margin: 10px;
     overflow: hidden;
     transition: transform 1s;
 }
 .pitch-card:hover {
-    transform: scale(1.1)
+    transform: scale(1.05)
 }
 .pitch-comment {
     text-decoration: none;
@@ -63,4 +67,16 @@ hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+.bio-btn {
+    border: none;
+    background: steelblue;
+    color: white
+}
+.bio-btn a {
+    color: white;
+    text-decoration: none;
+}
+.btn-container {
+    margin-top: 10px;
 }
