@@ -23,6 +23,9 @@ body {
 .navbar a {
     color: white;
 }
+span.icon-bar {
+    color: white;
+}
 .category:hover {
     transform: scale(1.1)
 }
