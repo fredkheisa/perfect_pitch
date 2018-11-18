@@ -61,7 +61,6 @@ def comment(user,pitch_id):
         date = date[0:10]
         new_comment = Comment(content = content, user = user, pitch = pitch,time = time, date = date )
         new_comment.save_comment()
-        flash(f"Comment for {pitch.title.upper()} added")
         return redirect(url_for("main.view_comments", pitch_id=pitch.id))
     return render_template("comment.html", title = pitch.title,form = form,pitch = pitch)
 

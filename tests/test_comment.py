@@ -50,3 +50,4 @@ class TestComment(unittest.TestCase):
 
         user_name = self.new_comment.user.name
         self.assertTrue(user_name == "marvo")
+    

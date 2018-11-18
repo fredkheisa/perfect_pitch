@@ -1,5 +1,5 @@
 import unittest
-from app.models import User
+from app.models import User,Pitch
 
 class TestUsers(unittest.TestCase):
     """
@@ -11,12 +11,13 @@ class TestUsers(unittest.TestCase):
         """
 
         self.new_user = User(name = "Nits", password = "marvo")
-    
+
     def tearDown(self):
         """
         Will delete all the info from the db
         """
         User.query.delete()
+        Pitch.query.delete()
 
     def test_instance(self):
         """
@@ -55,4 +56,12 @@ class TestUsers(unittest.TestCase):
         self.new_user.save_user()
         users = User.query.all()
         self.assertTrue(len(users) > 0)
+
+
+
+
+
+
+
+
 
