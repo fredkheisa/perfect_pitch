@@ -1,7 +1,7 @@
 from ..models import User,Pitch,Comment
 from .forms import AddPitchForm,AddComment,EditBio
 from . import main
-from flask import render_template,redirect,url_for,flash,request
+from flask import render_template,redirect,url_for,flash,request,abort
 from flask_login import login_required
 import datetime
 from .. import photos,db
@@ -20,7 +20,7 @@ def categories(category):
     else:
         pitches = Pitch.query.filter_by(category = category).all()
 
-    return render_template("pitches.html", pitches = pitches, title = category)
+    return render_template("pitches.html", pitches = pitches, title = category.upper())
 
 @main.route("/<uname>/add/pitch", methods = ["GET","POST"])
 @login_required
@@ -39,7 +39,7 @@ def add_pitch(uname):
         time = time[0:5]
         date = str(dateOriginal)
         date = date[0:10]
-        new_pitch = Pitch(title = title, content = pitch, category = category,user = user, date = date,time = time)
+        new_pitch = Pitch(title = title, content = pitch, category = category,user = user, date = date,time = time, upvotes = 0, downvotes = 0)
         new_pitch.save_pitch()  
         pitches = Pitch.query.all()
         return redirect(url_for("main.categories",category = category))
@@ -62,7 +62,7 @@ def comment(user,pitch_id):
         new_comment = Comment(content = content, user = user, pitch = pitch,time = time, date = date )
         new_comment.save_comment()
         flash(f"Comment for {pitch.title.upper()} added")
-        return redirect(url_for("main.categories", category=pitch.category))
+        return redirect(url_for("main.view_comments", pitch_id=pitch.id))
     return render_template("comment.html", title = pitch.title,form = form,pitch = pitch)
 
 @main.route("/<pitch_id>/comments")
@@ -78,8 +78,12 @@ def view_comments(pitch_id):
 @login_required
 def profile(user_id):
     user = User.query.filter_by(id = user_id).first()
-    pitches = user.pitches
-    title = user.name
+    user_pitches = user.pitches
+    if user_pitches:
+        pitches = user_pitches
+    else:
+        pitches = False
+    title = user.name.upper()
     return render_template("profile.html", pitches = pitches, user = user,title = title)
 
 @main.route("/pic/<user_id>/update", methods = ["POST"])
@@ -106,8 +110,6 @@ def update_profile(user_id):
         user.bio = bio
         db.session.commit() 
         return redirect(url_for('main.profile',user_id = user.id)) 
-    return render_template("update_profile.html",form = form)
-
-
+    return render_template("update_profile.html",form = form,title = title)
 
 
