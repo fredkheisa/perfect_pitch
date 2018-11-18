@@ -20,9 +20,9 @@ class DevConfig(Config):
     Args:
         Config - this is the parent config class from which we inherit its properties
     """
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/pitchperfect'
-
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/lastpitch'
+
 
 class ProdConfig(Config):
     """
@@ -30,7 +30,7 @@ class ProdConfig(Config):
     Args:
         Config - this is the parent config class from which we inherit its properties
     """
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class TestConfig(Config):
     """

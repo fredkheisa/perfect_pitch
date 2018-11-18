@@ -77,11 +77,7 @@ def view_comments(pitch_id):
 @login_required
 def profile(user_id):
     user = User.query.filter_by(id = user_id).first()
-    user_pitches = user.pitches
-    if user_pitches:
-        pitches = user_pitches
-    else:
-        pitches = False
+    pitches = Pitch.query.filter_by(user_id = user.id).order_by(Pitch.time.desc())
     title = user.name.upper()
     return render_template("profile.html", pitches = pitches, user = user,title = title)
 

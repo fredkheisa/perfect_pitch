@@ -14,9 +14,10 @@ def register():
         email = form.email.data
         pass_input = form.password.data
         profile_pic = "photos/default.png"
-        new_user = User(name = name, email = email, password = pass_input,profile_pic = profile_pic)
+        bio = "User has no bio"
+        new_user = User(name = name, email = email, password = pass_input,profile_pic = profile_pic, bio = bio)
         new_user.save_user()
-        create_mail("Yo","email/emai",new_user.email,name = name)
+        create_mail("Welcome","email/emai",new_user.email,name = name)
         return redirect(url_for("auth.login"))
     return render_template("auth/register.html",form = form,title = title)
 
