@@ -11,8 +11,8 @@ class Config:
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
-    MAIL_PASSWORD  = os.environ.get("EMAIL_PASSWORD")
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD  = os.environ.get("MAIL_PASSWORD")
 
 class DevConfig(Config):
     """
@@ -31,7 +31,6 @@ class ProdConfig(Config):
     Args:
         Config - this is the parent config class from which we inherit its properties
     """
-    DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class TestConfig(Config):
