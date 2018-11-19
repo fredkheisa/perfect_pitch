@@ -40,7 +40,7 @@ class TestConfig(Config):
         Config - this is the parent config class from which we inherit its properties
     """
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/tester'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/test1'
 
 
 config_options = {
