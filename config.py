@@ -20,7 +20,7 @@ class DevConfig(Config):
     Args:
         Config - this is the parent config class from which we inherit its properties
     """
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/lastpitch'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/perfect'
 
     DEBUG = True
 
