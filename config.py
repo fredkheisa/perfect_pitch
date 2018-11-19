@@ -13,7 +13,6 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
     MAIL_PASSWORD  = os.environ.get("EMAIL_PASSWORD")
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/lastpitch'
 
 class DevConfig(Config):
     """
@@ -21,6 +20,8 @@ class DevConfig(Config):
     Args:
         Config - this is the parent config class from which we inherit its properties
     """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://marvin:marvin24@localhost/lastpitch'
+
     DEBUG = True
 
 
