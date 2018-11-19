@@ -24,6 +24,7 @@ New users will receive a welcome email upon registration
 Once logged in, a user can comment on any pitch.
 A user can also add a pitch in one of the categories provided.
 The user can also customise their profile with a profile photo and a bio
+The user can also view another user's profile
 
 ### Tech used :computer: 
 1. HTML and CSS

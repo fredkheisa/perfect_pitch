@@ -79,10 +79,7 @@ hr {
     background: steelblue;
     color: white
 }
-a {
-    color: white;
-    text-decoration: none;
-}
+
 .btn-container {
     margin-top: 10px;
 }
@@ -102,4 +99,8 @@ a {
 }
 .login-btn {
     color: steelblue;
+}
+.profile-pic {
+    max-height: 300px;
+    max-width: 300px;
 }

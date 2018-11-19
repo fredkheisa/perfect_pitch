@@ -1,6 +1,6 @@
 Hey {{name}}
 Welcome to Pitch Perfect.
-This is a platform made for you to air out your pitches and views.
+This is a platform made for you to share your pitches and views.
 Hope you enjoy your experience with us.
 
 Cheers,

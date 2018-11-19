@@ -39,7 +39,7 @@ def add_pitch(uname):
         time = time[0:5]
         date = str(dateOriginal)
         date = date[0:10]
-        new_pitch = Pitch(title = title, content = pitch, category = category,user = user, date = date,time = time, upvotes = 0, downvotes = 0)
+        new_pitch = Pitch(title = title, content = pitch, category = category,user = user, date = date,time = time)
         new_pitch.save_pitch()  
         pitches = Pitch.query.all()
         return redirect(url_for("main.categories",category = category))
@@ -80,6 +80,13 @@ def profile(user_id):
     pitches = Pitch.query.filter_by(user_id = user.id).order_by(Pitch.time.desc())
     title = user.name.upper()
     return render_template("profile.html", pitches = pitches, user = user,title = title)
+
+@main.route("/<user_id>/profile")
+def user(user_id):
+    user = User.query.filter_by(id = user_id).first()
+    pitches = Pitch.query.filter_by(user_id = user.id).order_by(Pitch.time.desc())
+    title = user.name.upper()
+    return render_template("user.html", pitches = pitches, user = user,title = title)
 
 @main.route("/pic/<user_id>/update", methods = ["POST"])
 @login_required
